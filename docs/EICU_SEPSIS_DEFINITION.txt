@@ -1,0 +1,43 @@
+ACTUAL eICU SEPSIS COHORT DEFINITION (SOURCE-VERIFIED)
+
+1. Population and center restriction
+- Source: eicu_crd.patient.
+- Centers: s16_center_eligibility classified hospitals from raw vasopressor unit convertibility.
+- Eligible center classes: candidate_high_fidelity or candidate_moderate_fidelity (expanded_center=1).
+- Adult age: age='> 89' was coded as 90; otherwise age had to match an integer string; age>=18.
+- Required a positive unitdischargeoffset.
+
+2. First ICU stay
+- row_number() partitioned by uniquepid.
+- Ordering: unitvisitnumber NULLS LAST, then patientunitstayid.
+- Only rn=1 was retained.
+- This is first ICU stay per uniquepid under the original ordering, not first hospital encounter inferred later.
+
+3. Infection evidence
+- eicu_crd.diagnosis: diagnosisstring with diagnosisoffset.
+- eicu_crd.admissiondx: admitdxname/admitdxpath with admitdxenteredoffset.
+- Case-insensitive regular expression:
+  sepsis|septic|infection|infectious|pneumonia|bacteremia|urosepsis|pyelonephritis|urinary tract infection|cholangitis|cholecystitis|meningitis|cellulitis|abscess|peritonitis|endocarditis|osteomyelitis|empyema|infected
+- infection_evidence_offset was the minimum matching offset for the ICU stay.
+- evidence_sources recorded diagnosis, admissiondx, or both.
+- The original e05 algorithm did not use antibiotic-culture pairing, medication exposure, microlab culture timing, or a post-hoc P1 definition.
+- No infection-offset window relative to ICU admission or pressor-first T0 was imposed in e05.
+
+4. Organ dysfunction requirement
+- A modified first-day SOFA total was calculated from six components described in 05_sofa_time_semantics.txt.
+- Inclusion threshold: absolute modified SOFA total >=2.
+- This was not an observed SOFA increase from an individualized pre-infection baseline. No baseline SOFA was subtracted; operationally, the threshold corresponds to an assumed-zero/no-documented-baseline approach.
+
+5. Final e05 joins and exclusions
+- Required inner-join presence in adult first ICU, infection evidence, and modified SOFA objects.
+- Excluded by construction: non-expanded centers, non-adults/unparseable age, non-first stays, unitdischargeoffset<=0, no matching infection diagnosis evidence, or modified SOFA<2.
+- No additional antibiotic, culture, infection-before-T0, or model-outcome criterion was present.
+
+6. Sepsis time field used downstream
+- The available encounter-level sepsis time field was infection_evidence_offset, the earliest matching diagnosis/admission diagnosis offset.
+- The UO/NEQ study then used a separate pressor-first landmark T0.
+- Infection evidence was not required to precede T0. In the ratio cohort, 793/1,961 records had infection_evidence_offset>T0; these records were retained by the frozen encounter-level design.
+
+7. Source-closure result
+- Current e05 and the isolated rebuild were identical for all 11,649 members and all 29 stored fields.
+- All 1,803 formal eICU model members originated in both versions of e05.

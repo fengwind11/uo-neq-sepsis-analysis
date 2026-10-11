@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Credentials
+.env
+.env.*
+*.pem
+*.key
+credentials*
+secrets*
+
+# Patient-level / restricted data
+PRIVATE_WORK/
+private/
+data/raw/
+data/private/
+raw_data/
+patient_level/
+database_dumps/
+*.sql.gz
+*.dump
+*.backup
+*_by_case.csv
+*_anchor.csv
+*patient_ids*.csv
+*stay_ids*.csv
+*raw_trace*.csv
+
+# Generated analysis products
+outputs/
+results/
+figures/generated/
+*.log
+
+# Temporary
+tmp/
+temp/

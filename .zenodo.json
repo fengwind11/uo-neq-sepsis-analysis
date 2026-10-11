@@ -1,0 +1,36 @@
+{
+  "creators": [
+    {
+      "name": "Huang, Qiuxia",
+      "affiliation": "Fuzhou University Affiliated Provincial Hospital; Fujian Provincial Hospital; Shengli Clinical Medical College of Fujian Medical University"
+    },
+    {
+      "name": "Huang, Long",
+      "affiliation": "Fuzhou University Affiliated Provincial Hospital; Fujian Provincial Hospital; Shengli Clinical Medical College of Fujian Medical University"
+    },
+    {
+      "name": "Lin, Sheng",
+      "affiliation": "Fuzhou University Affiliated Provincial Hospital; Fujian Provincial Hospital; Shengli Clinical Medical College of Fujian Medical University"
+    },
+    {
+      "name": "Lu, Fengfeng",
+      "orcid": "0009-0004-6137-9795",
+      "affiliation": "Fuzhou University Affiliated Provincial Hospital; Fujian Provincial Hospital; Shengli Clinical Medical College of Fujian Medical University"
+    }
+  ],
+  "title": "Analysis code for urine output relative to vasopressor support and mortality in sepsis",
+  "version": "1.0.0",
+  "access_right": "open",
+  "keywords": [
+    "sepsis",
+    "critical care",
+    "urine output",
+    "vasopressor",
+    "norepinephrine-equivalent dose",
+    "MIMIC-IV",
+    "eICU"
+  ],
+  "license": "mit",
+  "upload_type": "software",
+  "language": "eng"
+}
